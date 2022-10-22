@@ -23,8 +23,8 @@ class Generate extends Component {
             type="text"
             name="price"
             id="price"
-            class="rounded-md py-2 w-1/3 shadow text-l"
-            placeholder=" e.g. Rocket League Championship Series"
+            class="rounded-md px-4 py-2 w-1/3 shadow text-l"
+            placeholder="e.g. Rocket League Championship Series"
           ></input>
         </div>
         <div class="flex flex-col w-full justify-center items-center pt-8 ">
@@ -35,8 +35,8 @@ class Generate extends Component {
             type="text"
             name="price"
             id="price"
-            class="rounded-md w-1/3 shadow py-2 text-l"
-            placeholder=" e.g. RLCS"
+            class="rounded-md w-1/3 shadow px-4 py-2 text-l"
+            placeholder="e.g. RLCS"
           ></input>
         </div>
         <div class="flex flex-col w-full justify-center items-center p-8">
@@ -54,8 +54,8 @@ class Generate extends Component {
             type="text"
             name="price"
             id="price"
-            class="rounded-md py-2 w-1/3 shadow text-l"
-            placeholder=" e.g. RL"
+            class="rounded-md px-4 py-2 w-1/3 shadow text-l"
+            placeholder="e.g. RL"
           ></input>
         </div>
         <div class="flex flex-col w-full justify-center items-center p-8">
