@@ -1,5 +1,6 @@
 const fsp = require("fs/promises");
 const hre = require("hardhat");
+const path = require("path");
 
 async function getDirectories(source) {
   return (await fsp.readdir(source, { withFileTypes: true }))
@@ -11,9 +12,9 @@ async function main() {
   const contractNames = await getDirectories("contracts");
   for (const contractName of contractNames) {
     const ContractFactory = await hre.ethers.getContractFactory(contractName);
-    const path = `../contracts/${contractName}/args.js`;
+    const argsPath = path.join("../", "contracts", contractName, "args.js");
 
-    const args = require(path);
+    const args = require(argsPath);
     const contract = await ContractFactory.deploy(...args);
 
     console.log(

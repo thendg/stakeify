@@ -1,11 +1,11 @@
 /**
-* @type import('hardhat/config').HardhatUserConfig
-*/
+ * @type import('hardhat/config').HardhatUserConfig
+ */
 
-require('dotenv').config();
+require("dotenv").config();
 require("@nomiclabs/hardhat-ethers");
 
-const { API_URL, PRIVATE_KEY } = process.env;
+const { ALCHEMY_RPC_URL, ETH_PRIVATE_KEY } = process.env;
 
 module.exports = {
   solidity: "0.8.9",
@@ -13,8 +13,8 @@ module.exports = {
   networks: {
     hardhat: {},
     polygon_mumbai: {
-      url: API_URL,
-      accounts: [`0x${PRIVATE_KEY}`]
-    }
+      url: ALCHEMY_RPC_URL,
+      accounts: [`0x${ETH_PRIVATE_KEY}`], // TODO: at the moment, the app has an account, is this good?
+    },
   },
-}
+};
