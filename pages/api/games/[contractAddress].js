@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import hre from "hardhat";
 import HelloWorld from "../../../contracts/HelloWorld/abi.json";
+import Prize from "../../../contracts/Prize/abi.json";
 
 const { ALCHEMY_API_KEY, ALCHEMY_RPC_URL } = process.env;
 
@@ -15,6 +16,9 @@ export default async function (req, res) {
   switch (type) {
     case "helloworld":
       contractInterface = HelloWorld;
+      break;
+    case "prize":
+      contractInterface = Prize;
       break;
   }
 
@@ -34,6 +38,7 @@ export default async function (req, res) {
     contractInterface,
     signer
   );
+  console.log(call);
   const contractResponse = await queryContract(contract, call, ...args);
 
   res.status(200).json({ contractResponse });

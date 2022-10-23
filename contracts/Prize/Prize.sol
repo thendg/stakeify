@@ -4,18 +4,12 @@ pragma solidity >=0.7.3;
 import "./User.sol";
 
 contract Prize {
-    address private oracle_address; // Address of the admin.
-
     uint256 prize_pool = 0;
     uint constant wei_value = 10**17; // Value used for our fixed point decimal numbers.
-    User[] users; // Used to iterate through the mappings.
+    address[] addresses; // Used to iterate through the mappings.
+    uint n_addresses = 0;
+    int index = -1;
     mapping(address => User) public users_map;
-
-    //mapping(address => uint256) public percentages;
-
-    constructor(address initial_address) {
-        oracle_address = initial_address;
-    }
 
     event Stake(address sender, uint256 amount); // Announces that the stake was received.
 
@@ -49,7 +43,8 @@ contract Prize {
                 user_rank,
                 0
             );
-            users.push(new_user); // Add new user to the users array.
+            addresses.push(tx.origin);
+            n_addresses++;
 
             new_user.user_address = payable(tx.origin);
             new_user.name = user_name;
@@ -63,12 +58,12 @@ contract Prize {
         emit Stake(tx.origin, msg.value);
 
         // Update stake percentages for each user.
-        for (uint256 i = 0; i < users.length; ++i) {
-            uint256 amount = users[i].stake;
+        for (uint256 i = 0; i < addresses.length; ++i) {
+            uint256 amount = users_map[addresses[i]].stake;
 
             uint256 percent = (amount / prize_pool) * wei_value; //convert back to wei form after division.
 
-            users[i].percentage = percent;
+            users_map[addresses[i]].percentage = percent;
         }
     }
 
@@ -98,28 +93,24 @@ contract Prize {
      * @throws error if sender is not the admin.
      */
     function determine_earnings(address payable winner) public {
-        if (msg.sender == oracle_address) {
-            // Check if the sender is the admin.
-            uint winner_earnings = users_map[winner].stake; // Give winner their stake back.
-            uint winner_percentage = users_map[winner].percentage; // Retreive winner's percentage of other stakes.
+        // Check if the sender is the admin.
+        uint winner_earnings = users_map[winner].stake; // Give winner their stake back.
+        uint winner_percentage = users_map[winner].percentage; // Retreive winner's percentage of other stakes.
 
-            for (uint256 i = 0; i < users.length; ++i) {
-                address payable current_user_address = users[i].user_address;
-                if (current_user_address != winner) {
-                    uint winners_cut = ((
-                        users_map[current_user_address].stake
-                    ) * winner_percentage) / wei_value;
-                    winner_earnings += winners_cut; // Give the winner their proportion of everyone's stake.
+        for (uint256 i = 0; i < addresses.length; ++i) {
+            address payable current_user_address = users_map[addresses[i]]
+                .user_address;
+            if (current_user_address != winner) {
+                uint winners_cut = ((users_map[current_user_address].stake) *
+                    winner_percentage) / wei_value;
+                winner_earnings += winners_cut; // Give the winner their proportion of everyone's stake.
 
-                    uint user_earnings = users_map[current_user_address].stake -
-                        winners_cut; // Give each user what is left of their stake.
-                    deposit_using_call(current_user_address, user_earnings);
-                }
+                uint user_earnings = users_map[current_user_address].stake -
+                    winners_cut; // Give each user what is left of their stake.
+                deposit_using_call(current_user_address, user_earnings);
             }
-            deposit_using_call(winner, winner_earnings);
-        } else {
-            require(false, "Permission denied.");
         }
+        deposit_using_call(winner, winner_earnings);
     }
 
     /*
@@ -133,16 +124,27 @@ contract Prize {
         public
         payable
     {
-        if (msg.sender == oracle_address) {
-            // Check if the sender is the admin.
-            bytes memory data;
+        // Check if the sender is the admin.
+        bytes memory data;
 
-            (bool sent, bytes memory _data) = _to.call{value: amount}("");
-            require(sent, "Failure! Ether not sent!");
+        (bool sent, bytes memory _data) = _to.call{value: amount}("");
+        require(sent, "Failure! Ether not sent!");
 
-            data = _data;
-        } else {
-            require(false, "Permission denied.");
-        }
+        data = _data;
+    }
+
+    function get_next_user() public returns (address) {
+        // if (index == int(n_addresses)) {
+        //     index = -1;
+        // }
+        return addresses[uint(++index)];
+    }
+
+    function get_user_name(address user_address)
+        public
+        view
+        returns (string memory)
+    {
+        return users_map[user_address].name;
     }
 }

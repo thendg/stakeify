@@ -25,8 +25,8 @@ function HomePage() {
         </p>
       </div>
       <div class="content-evenly grid grid-cols-2 gap-4 mt-14 mx-32">
-        <PageButton name="Create Contract" reRoute="/helloworld" />
-        <DashboardSearchBar reRoute="/helloworld" />
+        <PageButton name="Deploy Contract" reRoute="/generate" />
+        <DashboardSearchBar />
       </div>
     </div>
   );
