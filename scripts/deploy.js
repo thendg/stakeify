@@ -1,14 +1,14 @@
-const fsp = require("fs/promises");
+const fs = require("fs/promises");
 const hre = require("hardhat");
 const path = require("path");
 
 async function getDirectories(source) {
-  return (await fsp.readdir(source, { withFileTypes: true }))
+  return (await fs.readdir(source, { withFileTypes: true }))
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 }
 
-async function main() {
+export default async function main() {
   const contractNames = await getDirectories("contracts");
   for (const contractName of contractNames) {
     const ContractFactory = await hre.ethers.getContractFactory(contractName);
