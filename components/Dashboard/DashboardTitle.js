@@ -1,5 +1,4 @@
 import ReactECharts from "echarts-for-react";
-import Dashboard from "../pages/dashboard";
 
 export default function DashboardTitle() {
   const titleOptions = {
