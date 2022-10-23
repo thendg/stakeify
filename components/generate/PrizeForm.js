@@ -1,5 +1,5 @@
 async function deploy() {
-  fetch("/api/create/HelloWorld")
+  fetch("/api/create/HelloWorld?args=HelloWorld")
     .then((res) => res.json())
     .then(({ response }) => alert(response));
 }
