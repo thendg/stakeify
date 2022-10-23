@@ -5,6 +5,9 @@
 Add user address and stake amount to the stakes map.
 If user already has staked some amount, the new stake is just added to the previous stake.
 Update the stake percentages for each user.
+@input user's name
+@input user's country
+@input user's rank
 
 ## `fallback`
 Triggered only if a block is sent with an empty payload.
