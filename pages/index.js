@@ -8,7 +8,7 @@ function HomePage() {
     <div>
       <div className="mt-14  text-xl text-justify mx-32">
         <p>
-          Stakeify is a staking platform built on Polygon for prize distribution
+          Bednarski is a staking platform built on Polygon for prize distribution
           in competitive gaming environments.
         </p>
         <p className="mt-4">
