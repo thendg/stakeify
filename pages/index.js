@@ -2,6 +2,8 @@ import React from 'react';
 import HeaderBar from './Components/HeaderBar';
 import PageButton from './Components/PageButton';
 import DashboardSearchBar from './Components/DashboardSearchBar';
+import helloworld from './helloword';
+import router from 'next/router';
 
 function HomePage() {
     return (
@@ -13,8 +15,8 @@ function HomePage() {
                 <p className="mt-4">We define two protocols for each of these staking mechanisms: live staking and prize staking. Live staking is geared towards individual lobbies. Prize staking is geared towards championships such as the Rocket League Championship Series.</p>
             </div>
             <div class="content-evenly grid grid-cols-2 gap-4 mt-14 mx-32">
-                <PageButton name="Create Contract"/> 
-                <DashboardSearchBar/>
+                <PageButton name="Create Contract" reRoute="/helloworld" /> 
+                <DashboardSearchBar reRoute="/helloworld"/>
             </div>
         </div>
         
