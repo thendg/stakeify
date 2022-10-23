@@ -11,7 +11,7 @@ export default function DashboardTitle() {
           style: {
             text: "Dashboard",
             fontSize: 25,
-            fontWeight: "bold",
+            fontWeight: "normal",
             lineDash: [0, 200],
             lineDashOffset: 0,
             fill: "transparent",

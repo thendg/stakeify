@@ -11,7 +11,7 @@ export default function Leaderboard() {
     );
   }
   return (
-    <div className="w-full">
+    <div>
       <div className="drop-shadow-2xl overflow-hidden rounded border-b border-gray-200">
         <table className="min-w-full bg-white">
           <thead className="bg-violet-200 text-black font-semibold">

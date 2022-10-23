@@ -4,7 +4,6 @@ export default function Piechart() {
   const PieChartOptions = {
     //backgroundColor: '#FFFFFF',
     title: {
-      text: "Stakeholders",
       left: "center",
       textStyle: {
         color: "#000000",

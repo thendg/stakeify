@@ -1,30 +1,29 @@
-import PieChart from "../components/Dashboard/PieChart.js";
-import DashboardTitle from "../components/Dashboard/DashboardTitle.js";
-import Leaderboard from "../components/Dashboard/Leaderboard.js";
-import PrizePool from "../components/Dashboard/PrizePool.js";
+import PieChart from "../components/dashboard/PieChart.js";
+import DashboardTitle from "../components/dashboard/DashboardTitle.js";
+import Leaderboard from "../components/dashboard/Leaderboard.js";
+import PrizePool from "../components/dashboard/PrizePool.js";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export default function Dashboard(identifier) {
+export default function Dashboard() {
   const router = useRouter();
   const query = router.query;
   const contractAddress = query.contractAddress;
 
   //api/games/[contract adress]?type=prize&call=[message]
-  var address = `api/games/${contractAddress}?type=prize&call=${stuff}`;
+  var address = `api/games/${contractAddress}?type=prize&call=users_map`;
 
   useEffect(() => {
-    setLoading(true);
     fetch(`${address}`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        setLoading(false);
       });
   }, []);
 
   return (
     <div>
-      <div className="w-1/2">
+      <div className="flex flex-row items-center justify-center">
         <DashboardTitle />
       </div>
       <PrizePool />
@@ -33,7 +32,7 @@ export default function Dashboard(identifier) {
         <div className="w-1/2 drop-shadow-2xl">
           <PieChart />
         </div>
-        <div>
+        <div className="w-1/2 flex flex-row items-center justify-center ">
           <Leaderboard />
         </div>
       </div>
